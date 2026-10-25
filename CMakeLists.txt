@@ -4,12 +4,14 @@ project(MeshEditor LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+find_package(Eigen3 REQUIRED NO_MODULE)
 
 # Core library: pure topology, no graphics dependency
 add_library(meshcore
     src/core/Mesh.cpp
 )
 target_include_directories(meshcore PUBLIC src)
+target_link_libraries(meshcore PUBLIC Eigen3::Eigen)
 target_compile_options(meshcore PRIVATE
     $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall -Wextra -Wpedantic>
     $<$<CXX_COMPILER_ID:MSVC>:/W4>)
